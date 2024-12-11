@@ -2,3 +2,4 @@
 MDK-ARM/YH-STM32H743-Baremetal-Test/*.o
 MDK-ARM/YH-STM32H743-Baremetal-Test/*.crf
 MDK-ARM/YH-STM32H743-Baremetal-Test/*.d
+MDK-ARM/YH-STM32H743-Baremetal-Test/YH-STM32H743-Baremetal-Test.hex

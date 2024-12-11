@@ -21,7 +21,7 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-
+#include <stdio.h>
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -141,5 +141,36 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+// printf 进行重定向
+int fputc(int ch, FILE *f)
+{
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xffff);
+  return ch;
+}
+int fgetc(FILE * f)
+{
+  uint8_t ch = 0;
+  HAL_UART_Receive(&huart1,&ch, 1, 0xffff);
+  return ch;
+}
+// 2024-05-20 打印 CPU ID
+void Print_CPU_INFO(void)
+{
+	// 检测CPU ID
+	{
+		uint32_t CPU_Sn0;
+		uint32_t CPU_Sn1;
+		uint32_t CPU_Sn2;
+
+		CPU_Sn0 = *(__IO uint32_t*)(0x1FF1E800);
+		CPU_Sn1 = *(__IO uint32_t*)(0x1FF1E800 + 4);
+		CPU_Sn2 = *(__IO uint32_t*)(0x1FF1E800 + 8);
+		printf("\r\nCPU : STM32H743XIH6, BGA240, 主频: %dMHz\r\n", SystemCoreClock / 1000000);
+		printf("UID = %08X %08X %08X\n\r", CPU_Sn2, CPU_Sn1, CPU_Sn0);
+	}
+	printf("\n\r");
+	printf("*************************************************************\n\r");
+
+}
 
 /* USER CODE END 1 */

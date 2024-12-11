@@ -3,6 +3,7 @@
 "yh-stm32h743-baremetal-test\main.o"
 "yh-stm32h743-baremetal-test\gpio.o"
 "yh-stm32h743-baremetal-test\freertos.o"
+"yh-stm32h743-baremetal-test\i2c.o"
 "yh-stm32h743-baremetal-test\memorymap.o"
 "yh-stm32h743-baremetal-test\usart.o"
 "yh-stm32h743-baremetal-test\stm32h7xx_it.o"
@@ -39,7 +40,8 @@
 "yh-stm32h743-baremetal-test\cmsis_os2.o"
 "yh-stm32h743-baremetal-test\heap_4.o"
 "yh-stm32h743-baremetal-test\port.o"
---strict --scatter "YH-STM32H743-Baremetal-Test\YH-STM32H743-Baremetal-Test.sct"
+"yh-stm32h743-baremetal-test\i2c4.o"
+--library_type=microlib --strict --scatter "YH-STM32H743-Baremetal-Test\YH-STM32H743-Baremetal-Test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "YH-STM32H743-Baremetal-Test.map" -o YH-STM32H743-Baremetal-Test\YH-STM32H743-Baremetal-Test.axf

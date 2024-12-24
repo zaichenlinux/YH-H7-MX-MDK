@@ -91,6 +91,18 @@ const osThreadAttr_t myTask04_attributes = {
   .stack_size = sizeof(myTask04Buffer),
   .priority = (osPriority_t) osPriorityLow4,
 };
+/* Definitions for MB_Slave_Task */
+osThreadId_t MB_Slave_TaskHandle;
+uint32_t MB_Slave_TaskBuffer[ 512 ];
+osStaticThreadDef_t MB_Slave_TaskControlBlock;
+const osThreadAttr_t MB_Slave_Task_attributes = {
+  .name = "MB_Slave_Task",
+  .cb_mem = &MB_Slave_TaskControlBlock,
+  .cb_size = sizeof(MB_Slave_TaskControlBlock),
+  .stack_mem = &MB_Slave_TaskBuffer[0],
+  .stack_size = sizeof(MB_Slave_TaskBuffer),
+  .priority = (osPriority_t) osPriorityNormal4,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -101,6 +113,7 @@ void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 void StartTask03(void *argument);
 void StartTask04(void *argument);
+void MB_Slave_Task_Entry(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -172,6 +185,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of myTask04 */
   myTask04Handle = osThreadNew(StartTask04, NULL, &myTask04_attributes);
+
+  /* creation of MB_Slave_Task */
+  MB_Slave_TaskHandle = osThreadNew(MB_Slave_Task_Entry, NULL, &MB_Slave_Task_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -253,6 +269,24 @@ __weak void StartTask04(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartTask04 */
+}
+
+/* USER CODE BEGIN Header_MB_Slave_Task_Entry */
+/**
+* @brief Function implementing the MB_Slave_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_MB_Slave_Task_Entry */
+__weak void MB_Slave_Task_Entry(void *argument)
+{
+  /* USER CODE BEGIN MB_Slave_Task_Entry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END MB_Slave_Task_Entry */
 }
 
 /* Private application code --------------------------------------------------*/

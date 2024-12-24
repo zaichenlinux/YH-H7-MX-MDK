@@ -53,7 +53,10 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+// freemodbus
+extern void prvvUARTTxReadyISR( void );
+extern void prvvUARTRxISR( void );
+extern void prvvTIMERExpiredISR( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
